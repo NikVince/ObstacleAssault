@@ -40,8 +40,8 @@ private:
 	void MovePlatform(float DeltaTime);
 	void RotatePlatform(float DeltaTime);
 
-	bool ShouldPlatformReturn();
+	bool ShouldPlatformReturn() const;
 
-	float GetDistanceTravelled();
+	float GetDistanceTravelled() const;
 
 };
