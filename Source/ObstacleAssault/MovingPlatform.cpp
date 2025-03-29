@@ -28,17 +28,20 @@ void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// Move Platform Forward
-		// Get current location
+	MovePlatform(DeltaTime);
+	RotatePlatform(DeltaTime);
+
+	
+}
+
+
+void AMovingPlatform::MovePlatform(float DeltaTime)
+{
 	FVector CurrentLocation = GetActorLocation();
-		// Add Vector to that location
 	CurrentLocation = CurrentLocation + PlatformVelocity * DeltaTime;
-		// Set new location
 	SetActorLocation(CurrentLocation);
-	// Send Platform back if gone to far
-		// Check how far it has gone
 	float DistanceTravelled = FVector::Dist(StartLocation, CurrentLocation);
-		// Reverse direction if gone to far
+
 	if (DistanceTravelled > DistanceToTravel)
 	{
 		FString PlatformName = GetName();
@@ -51,3 +54,8 @@ void AMovingPlatform::Tick(float DeltaTime)
 	}
 }
 
+// function to rotate platform without real implementation, but only logging for prototyping
+void AMovingPlatform::RotatePlatform(float DeltaTime)
+{
+	UE_LOG(LogTemp, Display, TEXT("Rotating Platform"));
+}
