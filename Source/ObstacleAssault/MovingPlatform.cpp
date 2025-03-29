@@ -18,8 +18,9 @@ void AMovingPlatform::BeginPlay()
 
 	StartLocation = GetActorLocation();
 
-	UE_LOG(LogTemp, Warning, TEXT("This is a test warning log output!"));
 	UE_LOG(LogTemp, Display, TEXT("This moving platform is moving: %f"), DistanceToTravel);
+
+	UE_LOG(LogTemp, Display, TEXT("The Start Location is: %s"), *StartLocation.ToString());
 }
 
 // Called every frame
@@ -40,8 +41,9 @@ void AMovingPlatform::Tick(float DeltaTime)
 		// Reverse direction if gone to far
 	if (DistanceTravelled > DistanceToTravel)
 	{
+		FString PlatformName = GetName();
 		float OverShoot = DistanceTravelled - DistanceToTravel;
-		UE_LOG(LogTemp, Display, TEXT("The OverShoot is: %f"), OverShoot);
+		UE_LOG(LogTemp, Display, TEXT("The OverShoot of Platform %s is: %f"), *PlatformName, OverShoot);
 		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
 		StartLocation = StartLocation + MoveDirection * DistanceToTravel;
 		SetActorLocation(StartLocation);
