@@ -26,14 +26,13 @@ public:
 private:
 
 	//VARIABLES
-	UPROPERTY(EditAnywhere, Category = "Moving Platform")
+	UPROPERTY(EditAnywhere, Category = "Movement")
 	FVector PlatformVelocity = FVector(100, 0, 0);
-	UPROPERTY(EditAnywhere, Category = "Moving Platform")
+	UPROPERTY(EditAnywhere, Category = "Movement")
 	float DistanceToTravel = 1000;
-	// UPROPERTY(EditAnywhere, Category = "Distance Travelled")
-	// double DistanceTravelled = 0;
+	UPROPERTY(EditAnywhere, Category = "Rotation")
+	FRotator RotationVelocity = FRotator(0, 0, 0);
 
-	// Checking how far the platform has gone
 	FVector StartLocation;
 	
 	//FUNCTIONS
