@@ -37,25 +37,35 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 void AMovingPlatform::MovePlatform(float DeltaTime)
 {
-	FVector CurrentLocation = GetActorLocation();
-	CurrentLocation = CurrentLocation + PlatformVelocity * DeltaTime;
-	SetActorLocation(CurrentLocation);
-	float DistanceTravelled = FVector::Dist(StartLocation, CurrentLocation);
-
-	if (DistanceTravelled > DistanceToTravel)
+	if (ShouldPlatformReturn())
 	{
-		FString PlatformName = GetName();
-		float OverShoot = DistanceTravelled - DistanceToTravel;
-		UE_LOG(LogTemp, Display, TEXT("The OverShoot of Platform %s is: %f"), *PlatformName, OverShoot);
 		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
 		StartLocation = StartLocation + MoveDirection * DistanceToTravel;
 		SetActorLocation(StartLocation);
 		PlatformVelocity = -PlatformVelocity;
 	}
+	else
+	{
+		FVector CurrentLocation = GetActorLocation();
+		CurrentLocation = CurrentLocation + PlatformVelocity * DeltaTime;
+		SetActorLocation(CurrentLocation);
+
+	}
 }
 
-// function to rotate platform without real implementation, but only logging for prototyping
+
 void AMovingPlatform::RotatePlatform(float DeltaTime)
 {
-	UE_LOG(LogTemp, Display, TEXT("Rotating Platform"));
+	UE_LOG(LogTemp, Display, TEXT("%s is rotating"), *GetName());
 }
+
+bool AMovingPlatform::ShouldPlatformReturn()
+{
+	return GetDistanceTravelled() > DistanceToTravel;
+}
+
+float AMovingPlatform::GetDistanceTravelled()
+{
+	return FVector::Dist(StartLocation, GetActorLocation());
+}
+
